@@ -18,8 +18,8 @@
     - [x] Implement Feature [68c8b91]
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Core API Methods' (Protocol in workflow.md)
 
-## Phase 3: Robustness and Documentation
-- [ ] Task: Implement global exception handling and validation for IFormFile.
-- [ ] Task: Configure Swagger documentation with detailed DTO descriptions.
-- [ ] Task: Verify overall test coverage is > 80%.
+## Phase 3: Robustness and Documentation [checkpoint: f4e94b5]
+- [x] Task: Implement global exception handling and validation for IFormFile. [3d0cc14]
+- [x] Task: Configure Swagger documentation with detailed DTO descriptions. [53bdf00]
+- [x] Task: Verify overall test coverage is > 80%. [0432c52]
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Robustness and Documentation' (Protocol in workflow.md)
