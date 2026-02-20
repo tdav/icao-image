@@ -76,6 +76,48 @@ extern "C" {
         uint8_t* occlusionMask;    // WH bytes
     } BridgePreprocessingResult;
 
+    BridgeReturnStatus ofiq_vector_quality(
+        OFIQInterface handle, 
+        uint16_t width, uint16_t height, uint8_t depth, uint8_t* data, 
+        BridgeAssessment* results, int* count,
+        BridgeBoundingBox* bbox) 
+    {
+        auto impl = *static_cast<std::shared_ptr<OFIQ::Interface>*>(handle);
+        
+        OFIQ::Image image;
+        image.width = width;
+        image.height = height;
+        image.depth = depth;
+        image.data.reset(data, [](uint8_t*){});
+
+        OFIQ::FaceImageQualityAssessment assessments;
+        auto status = impl->vectorQuality(image, assessments);
+
+        if (status.code == OFIQ::ReturnCode::Success) {
+            // Fill Bounding Box
+            bbox->x = assessments.boundingBox.xleft;
+            bbox->y = assessments.boundingBox.ytop;
+            bbox->width = assessments.boundingBox.width;
+            bbox->height = assessments.boundingBox.height;
+
+            // Fill Assessments
+            int i = 0;
+            for (const auto& [measure, result] : assessments.qAssessments) {
+                results[i].measure = static_cast<int>(measure);
+                results[i].rawScore = result.rawScore;
+                results[i].scalar = result.scalar;
+                results[i].code = static_cast<int>(result.code);
+                i++;
+            }
+            *count = i;
+        }
+
+        BridgeReturnStatus bridgeStatus;
+        bridgeStatus.code = static_cast<int>(status.code);
+        bridgeStatus.info = strdup(status.info.c_str());
+        return bridgeStatus;
+    }
+
     BridgeReturnStatus ofiq_vector_quality_with_preprocessing(
         OFIQInterface handle, 
         uint16_t width, uint16_t height, uint8_t depth, uint8_t* data, 
