@@ -1,8 +1,0 @@
-﻿{
-"track_id": "ofiq_rest_api_20260220",
-"type": "feature",
-"status": "new",
-"created_at": "2026-02-20T22:09:09Z",
-"updated_at": "2026-02-20T22:09:09Z",
-"description": "Creation of an ASP.NET Core REST API with 3 methods (Scalar, Vector, Preprocessing) for OFIQ analysis."
-}

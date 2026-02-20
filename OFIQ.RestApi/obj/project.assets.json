@@ -36,6 +36,35 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "SixLabors.ImageSharp/3.1.12": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/SixLabors.ImageSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/SixLabors.ImageSharp.props": {}
+        }
+      },
+      "ikao/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "SixLabors.ImageSharp": "3.1.12"
+        },
+        "compile": {
+          "bin/placeholder/ikao.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ikao.dll": {}
+        }
       }
     }
   },
@@ -75,11 +104,34 @@
         "microsoft.openapi.2.0.0.nupkg.sha512",
         "microsoft.openapi.nuspec"
       ]
+    },
+    "SixLabors.ImageSharp/3.1.12": {
+      "sha512": "iAg6zifihXEFS/t7fiHhZBGAdCp3FavsF4i2ZIDp0JfeYeDVzvmlbY1CNhhIKimaIzrzSi5M/NBFcWvZT2rB/A==",
+      "type": "package",
+      "path": "sixlabors.imagesharp/3.1.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "build/SixLabors.ImageSharp.props",
+        "lib/net6.0/SixLabors.ImageSharp.dll",
+        "lib/net6.0/SixLabors.ImageSharp.xml",
+        "sixlabors.imagesharp.128.png",
+        "sixlabors.imagesharp.3.1.12.nupkg.sha512",
+        "sixlabors.imagesharp.nuspec"
+      ]
+    },
+    "ikao/1.0.0": {
+      "type": "project",
+      "path": "../OFIQConsoleApp/IKAO-Images.csproj",
+      "msbuildProject": "../OFIQConsoleApp/IKAO-Images.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "Microsoft.AspNetCore.OpenApi >= 10.0.3"
+      "Microsoft.AspNetCore.OpenApi >= 10.0.3",
+      "SixLabors.ImageSharp >= 3.1.12",
+      "ikao >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -113,7 +165,11 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Works\\CameraCloud\\ikao\\OFIQConsoleApp\\IKAO-Images.csproj": {
+              "projectPath": "C:\\Works\\CameraCloud\\ikao\\OFIQConsoleApp\\IKAO-Images.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -135,6 +191,10 @@
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[10.0.3, )"
+          },
+          "SixLabors.ImageSharp": {
+            "target": "Package",
+            "version": "[3.1.12, )"
           }
         },
         "imports": [
