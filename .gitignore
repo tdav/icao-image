@@ -5,3 +5,8 @@
 /OFIQConsoleApp.Tests/bin/Debug/net10.0
 /OFIQConsoleApp.Tests/obj
 /.vs/IKAO-Images/FileContentIndex
+/.vs/IKAO-Images
+/OFIQ.RestApi/bin/Debug/net10.0
+/OFIQ.RestApi/obj/Debug/net10.0
+/OFIQ.RestApi.Tests/bin/Debug/net10.0
+/OFIQ.RestApi.Tests/obj
