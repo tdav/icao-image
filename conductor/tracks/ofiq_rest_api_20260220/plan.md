@@ -1,9 +1,9 @@
 ﻿# Implementation Plan: ASP.NET Core REST API for OFIQ
 
-## Phase 1: Project Scaffolding and Infrastructure
-- [ ] Task: Create new ASP.NET Core Web API project.
-- [ ] Task: Add project references to IKAO-Images.csproj and SixLabors.ImageSharp.
-- [ ] Task: Implement OFIQService as a Singleton to manage OFIQ lifecycle (Init/Destroy).
+## Phase 1: Project Scaffolding and Infrastructure [checkpoint: 4309014]
+- [x] Task: Create new ASP.NET Core Web API project. [c964f17]
+- [x] Task: Add project references to IKAO-Images.csproj and SixLabors.ImageSharp. [d1aa9e7]
+- [x] Task: Implement OFIQService as a Singleton to manage OFIQ lifecycle (Init/Destroy). [2c219ad]
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Project Scaffolding' (Protocol in workflow.md)
 
 ## Phase 2: Core API Methods Implementation
