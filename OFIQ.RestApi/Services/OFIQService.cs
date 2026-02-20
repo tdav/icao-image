@@ -15,24 +15,24 @@ namespace OFIQ.RestApi.Services
 
     public class OFIQService : IOFIQService, IDisposable
     {
-        private readonly IntPtr _handle;
-        private readonly ILogger<OFIQService> _logger;
-        private readonly string _configDir = ".";
-        private readonly string _configFile = "ofiq_config.jaxn";
+        private readonly IntPtr handle;
+        private readonly ILogger<OFIQService> logger;
+        private readonly string configDir = ".";
+        private readonly string configFile = "ofiq_config.jaxn";
 
         public OFIQService(ILogger<OFIQService> logger, IConfiguration configuration)
         {
-            _logger = logger;
+            this.logger = logger;
             
-            _logger.LogInformation("Initializing OFIQ library...");
-            _handle = NativeInvoke.ofiq_get_implementation();
+            this.logger.LogInformation("Initializing OFIQ library...");
+            handle = NativeInvoke.ofiq_get_implementation();
             
-            if (_handle == IntPtr.Zero)
+            if (handle == IntPtr.Zero)
             {
                 throw new Exception("Failed to get OFIQ implementation handle.");
             }
 
-            var status = NativeInvoke.ofiq_initialize(_handle, _configDir, _configFile);
+            var status = NativeInvoke.ofiq_initialize(handle, configDir, configFile);
             if (status.Code != (int)NativeInvoke.ReturnCode.Success)
             {
                 string error = status.GetInfo();
@@ -40,7 +40,7 @@ namespace OFIQ.RestApi.Services
                 throw new Exception($"Failed to initialize OFIQ: {error} (Code: {status.Code})");
             }
             NativeInvoke.free_status(status);
-            _logger.LogInformation("OFIQ library initialized successfully.");
+            this.logger.LogInformation("OFIQ library initialized successfully.");
         }
 
         public async Task<double> GetScalarQualityAsync(Stream imageStream)
@@ -88,7 +88,7 @@ namespace OFIQ.RestApi.Services
                     };
 
                     status = NativeInvoke.ofiq_vector_quality_with_preprocessing(
-                        _handle, (ushort)image.Width, (ushort)image.Height, 24, 
+                        handle, (ushort)image.Width, (ushort)image.Height, 24, 
                         (IntPtr)handlePin.Pointer, results, out count, out bbox, ref preproc);
                     
                     maxLandmarks = preproc.LandmarkCount;
@@ -123,7 +123,7 @@ namespace OFIQ.RestApi.Services
             {
                 unsafe
                 {
-                    status = NativeInvoke.ofiq_vector_quality(_handle, (ushort)image.Width, (ushort)image.Height, 24, (IntPtr)handlePin.Pointer, results, out count, out bbox);
+                    status = NativeInvoke.ofiq_vector_quality(handle, (ushort)image.Width, (ushort)image.Height, 24, (IntPtr)handlePin.Pointer, results, out count, out bbox);
                 }
             }
 
@@ -140,10 +140,10 @@ namespace OFIQ.RestApi.Services
 
         public void Dispose()
         {
-            if (_handle != IntPtr.Zero)
+            if (handle != IntPtr.Zero)
             {
-                _logger.LogInformation("Destroying OFIQ implementation...");
-                NativeInvoke.ofiq_destroy_implementation(_handle);
+                logger.LogInformation("Destroying OFIQ implementation...");
+                NativeInvoke.ofiq_destroy_implementation(handle);
             }
         }
     }
