@@ -47,6 +47,11 @@ mkdir -p "$MODELS_DIR"
 cp OFIQConsoleApp/ofiq_config.jaxn "$CONFIG_DIR/"
 cp -r OFIQConsoleApp/models/* "$MODELS_DIR/"
 
+# Set executable permissions
+echo "Setting executable permissions..."
+chmod +x "$CONSOLE_DIR/ikao"
+chmod +x "$API_DIR/OFIQ.RestApi"
+
 echo "------------------------------------------------"
 echo "Setup complete!"
 echo "Artifacts are located in the '$DIST_DIR' directory."
