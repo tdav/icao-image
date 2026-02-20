@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OFIQConsoleApp\IKAO-Images.csproj" />
+    <ProjectReference Include="..\ikao\ikao.csproj" />
   </ItemGroup>
 
 </Project>

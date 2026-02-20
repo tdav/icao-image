@@ -56,9 +56,6 @@
       "ikao/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "SixLabors.ImageSharp": "3.1.12"
-        },
         "compile": {
           "bin/placeholder/ikao.dll": {}
         },
@@ -123,8 +120,8 @@
     },
     "ikao/1.0.0": {
       "type": "project",
-      "path": "../OFIQConsoleApp/IKAO-Images.csproj",
-      "msbuildProject": "../OFIQConsoleApp/IKAO-Images.csproj"
+      "path": "../ikao/ikao.csproj",
+      "msbuildProject": "../ikao/ikao.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -166,8 +163,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Works\\CameraCloud\\ikao\\OFIQConsoleApp\\IKAO-Images.csproj": {
-              "projectPath": "C:\\Works\\CameraCloud\\ikao\\OFIQConsoleApp\\IKAO-Images.csproj"
+            "C:\\Works\\CameraCloud\\ikao\\ikao\\ikao.csproj": {
+              "projectPath": "C:\\Works\\CameraCloud\\ikao\\ikao\\ikao.csproj"
             }
           }
         }
