@@ -44,7 +44,7 @@ done
 # Deploy configuration and models
 echo "Deploying configuration and models..."
 mkdir -p "$MODELS_DIR"
-cp ofiq_config.jaxn "$CONFIG_DIR/"
+cp OFIQConsoleApp/ofiq_config.jaxn "$CONFIG_DIR/"
 cp -r OFIQConsoleApp/models/* "$MODELS_DIR/"
 
 echo "------------------------------------------------"
