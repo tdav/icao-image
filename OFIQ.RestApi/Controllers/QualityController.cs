@@ -17,6 +17,11 @@ namespace OFIQ.RestApi.Controllers
             _ofiqService = ofiqService;
         }
 
+        /// <summary>
+        /// (Method A) Calculates the overall scalar quality score of a face image.
+        /// </summary>
+        /// <param name="file">The image file (JPG, PNG).</param>
+        /// <returns>JSON object with ScalarQuality score.</returns>
         [HttpPost("scalar")]
         [ValidateImageFile]
         public async Task<IActionResult> GetScalarQuality(IFormFile file)
@@ -26,6 +31,11 @@ namespace OFIQ.RestApi.Controllers
             return Ok(new ScalarQualityResponse { ScalarQuality = score });
         }
 
+        /// <summary>
+        /// (Method B) Calculates all detailed quality metrics and detects the face bounding box.
+        /// </summary>
+        /// <param name="file">The image file (JPG, PNG).</param>
+        /// <returns>Detailed quality metrics and bounding box.</returns>
         [HttpPost("vector")]
         [ValidateImageFile]
         public async Task<IActionResult> GetVectorQuality(IFormFile file)
@@ -50,6 +60,11 @@ namespace OFIQ.RestApi.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// (Method C) Performs full analysis including quality metrics, bounding box, and 98 facial landmarks.
+        /// </summary>
+        /// <param name="file">The image file (JPG, PNG).</param>
+        /// <returns>Full analysis results including landmarks.</returns>
         [HttpPost("preprocessing")]
         [ValidateImageFile]
         public async Task<IActionResult> GetPreprocessingResults(IFormFile file)
