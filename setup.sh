@@ -3,29 +3,57 @@
 # Exit on error
 set -e
 
+# Project Structure Variables
+DIST_DIR="dist"
+CONSOLE_DIR="$DIST_DIR/console"
+API_DIR="$DIST_DIR/api"
+CONFIG_DIR="$DIST_DIR/config"
+MODELS_DIR="$CONFIG_DIR/models"
+
+# Cleanup
+echo "Cleaning up old build artifacts..."
+rm -rf "$DIST_DIR"
+mkdir -p "$DIST_DIR"
+
 echo "Compiling OFIQ C++ Bridge..."
 # We need to link against libofiq_lib.so.
-# libonnxruntime is likely a dependency of libofiq_lib.so.
 g++ -shared -fPIC ofiq_bridge.cpp -o libofiq_bridge.so -L. -lofiq_lib -I. -Wl,-rpath,.
 
 echo "Restoring and Building C# Console App..."
 cd OFIQConsoleApp
-dotnet publish -c Release -r linux-x64 --self-contained false
+dotnet publish -c Release -r linux-x64 --self-contained false -o "../$CONSOLE_DIR"
 cd ..
 
-# Copy libraries to the publish directory
-echo "Copying libraries to publish folder..."
-PUBLISH_DIR="OFIQConsoleApp/bin/Release/net10.0/linux-x64/publish/"
-cp libofiq_lib.so "$PUBLISH_DIR"
-cp libonnxruntime.so.1.18.1 "$PUBLISH_DIR"
-cp libofiq_bridge.so "$PUBLISH_DIR"
+echo "Restoring and Building OFIQ REST API..."
+cd OFIQ.RestApi
+dotnet publish -c Release -r linux-x64 --self-contained false -o "../$API_DIR"
+cd ..
 
-# Create symlink for onnxruntime if needed
-ln -sf libonnxruntime.so.1.18.1 "$PUBLISH_DIR/libonnxruntime.so"
+# Copy libraries to both application folders
+echo "Distributing libraries..."
+APPS=("$CONSOLE_DIR" "$API_DIR")
+
+for APP in "${APPS[@]}"; do
+    cp libofiq_lib.so "$APP/"
+    cp libonnxruntime.so.1.18.1 "$APP/"
+    cp libofiq_bridge.so "$APP/"
+    # Create symlink for onnxruntime
+    ln -sf libonnxruntime.so.1.18.1 "$APP/libonnxruntime.so"
+done
+
+# Deploy configuration and models
+echo "Deploying configuration and models..."
+mkdir -p "$MODELS_DIR"
+cp ofiq_config.jaxn "$CONFIG_DIR/"
+cp -r OFIQConsoleApp/models/* "$MODELS_DIR/"
 
 echo "------------------------------------------------"
 echo "Setup complete!"
-echo "To run the application:"
-echo "cd $PUBLISH_DIR"
-echo "./OFIQConsoleApp <path_to_image> <config_dir> <config_file>"
+echo "Artifacts are located in the '$DIST_DIR' directory."
+echo ""
+echo "To run the Console App:"
+echo "cd $CONSOLE_DIR && ./ikao <path_to_image>"
+echo ""
+echo "To run the REST API:"
+echo "cd $API_DIR && ./OFIQ.RestApi"
 echo "------------------------------------------------"
